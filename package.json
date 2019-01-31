@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chance": "^1.0.18"
+    "chance": "^1.0.18",
+    "firebase-admin": "^6.5.1"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0"
   }
 }

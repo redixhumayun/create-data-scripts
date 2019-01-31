@@ -4,15 +4,14 @@ const chance = new Chance()
 const subjects = ['Maths', 'Science', 'Geography']
 const topics = [['algebra', 'calculus', 'trignometry'], ['physics', 'chemistry', 'biology'], ['oceans', 'forests', 'land']]
 
-const createMentorData = ({ noOfMentorsToCreate, mentorUidCollection }) => {
-  let mentorUidCollectionCopy = [...mentorUidCollection]
-  return new Array(noOfMentorsToCreate).fill().map(() => {
+const createStudentData = ({ noOfStudentsToCreate, studentUidCollection }) => {
+  let studentUidCollectionCopy = [...studentUidCollection]
+  return new Array(noOfStudentsToCreate).fill().map(() => {
     return {
-      "uid": mentorUidCollectionCopy.pop(),
-      "available": chance.bool(),
+      "uid": studentUidCollectionCopy.pop(),
       "email": chance.email(),
-      "gems": chance.integer({ min: 0, max: 100 }),
       "name": chance.name(),
+      "gems": chance.integer({ min: 0, max: 100 }),
       "levels": [{
         "level": "GCSE",
         "subjects": new Array(randomIntFromInterval(0, 3)).fill().map(() => {
@@ -33,10 +32,7 @@ const createMentorData = ({ noOfMentorsToCreate, mentorUidCollection }) => {
             "topics": topics[subIndex].slice(0, noOfTopics)
           }
         })
-      }],
-      "avgRating": chance.pickone([1, 2, 3, 4, 5]),
-      "totalQuestionsAnswered": 0,
-      "totalRating": 0
+      }]
     }
   })
 }
@@ -46,4 +42,4 @@ function randomIntFromInterval(min, max) // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-module.exports.createMentorData = createMentorData
+module.exports.createStudentData = createStudentData
