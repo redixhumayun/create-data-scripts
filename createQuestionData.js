@@ -4,6 +4,7 @@ const chance = new Chance()
 const questionStatuses = ['pending', 'matched', 'claimed', 'solved']
 const subjects = ['Maths', 'Science', 'Geography']
 const topics = [['algebra', 'calculus', 'trignometry'], ['physics', 'chemistry', 'biology'], ['oceans', 'forests', 'land']]
+const level = ['GCSE', 'A Level']
 
 const createQuestionData = ({ noOfQuestionsToCreate, studentUidCollection, mentorUidCollection }) => {
   return new Array(noOfQuestionsToCreate).fill().map(() => {
@@ -18,7 +19,8 @@ const createQuestionData = ({ noOfQuestionsToCreate, studentUidCollection, mento
         name: subjects[subjectIndex],
         backgroundColor: getRandomColor(),
         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/fir-demo-ea316.appspot.com/o/images%2F,maths.png?alt=media&token=a34071db-7867-47e8-9baf-4090f19649db',
-        topics: topics[subjectIndex]
+        topics: topics[subjectIndex], 
+        level: chance.pickone(level)
       },
       "storageUri": "images/Q9sF2bbb3WwhEgBZddmV/question.jpg",
       "topic": chance.pickone(topics[subjectIndex]),

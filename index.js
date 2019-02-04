@@ -14,7 +14,7 @@ const db = admin.firestore()
 
 const { users, studentUidCollection, mentorUidCollection } = createUserData({ noOfUsersToCreate: 50 })
 const mentors = createMentorData({ noOfMentorsToCreate: mentorUidCollection.length, mentorUidCollection })
-const students = createStudentData({ noOfStudentsToCreate: studentUidCollection.length, studentUidCollection })
+const students = createStudentData({ noOfStudentsToCreate: studentUidCollection.length, studentUidCollection, mentorUidCollection })
 const questions = createQuestionData({ noOfQuestionsToCreate: 50, studentUidCollection, mentorUidCollection })
 
 const writeToFirestore = async (collections) => {
@@ -34,9 +34,29 @@ const writeToFirestore = async (collections) => {
   }
 }
 
-writeToFirestore({ 
-  users, mentors, students, questions
-})
+const writeSingleQuestion = async () => {
+  const questionRef = db.collection('questions')
+  const docRef = questionRef.doc('eb50700b-ce86-5857-90a1-e018bd5eecf2')
+  docRef.set({
+    "status": "pending",
+    "studentId": "0060cd26-38fb-5a8b-a769-86c02e8b1598",
+    "subject": {
+      "name": "Maths",
+      "level": "GCSE",
+      "topics": ["algebra", "trigonometry", "calculus"]
+    },
+    "topic": "calculus",
+    "uid": "eb50700b-ce86-5857-90a1-e018bd5eecf2",
+    "matchedMentorIds": []
+  })
+  return
+}
+
+writeSingleQuestion()
+
+// writeToFirestore({ 
+//   users, mentors, students, questions
+// })
 
 const print = (...data) => {
   data.map(datum => {
@@ -44,4 +64,3 @@ const print = (...data) => {
     console.log('\n\n')
   })
 }
-
