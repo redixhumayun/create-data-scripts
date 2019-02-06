@@ -26,13 +26,16 @@ const createQuestionData = ({ noOfQuestionsToCreate, studentUidCollection, mento
       "topic": chance.pickone(topics[subjectIndex]),
       "title": chance.string(),
       "studentId": chance.pickone(studentUidCollection),
-      "matchedMentorIds": []
+      "matchedMentorIds": [],
+      "claimedMentorIds": []
     }
     if (result.status === 'claimed') {
-      result.matchedMentorIds = chance.pickone(mentorUidCollection)
+      const mentorUids = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
+      result.matchedMentorIds = mentorUids
+      result.claimedMentorIds = chance.pickone(mentorUids)
     }
     if (result.status === 'matched') {
-      result.matchedMentorIds = chance.pickset(mentorUidCollection, chance.integer({ min: 0, max: 5 }))
+      result.matchedMentorIds = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
     }
     if (result.status === 'solved') {
       result.answer = {

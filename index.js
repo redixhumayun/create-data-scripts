@@ -12,10 +12,14 @@ admin.initializeApp({
 });
 const db = admin.firestore()
 
-const { users, studentUidCollection, mentorUidCollection } = createUserData({ noOfUsersToCreate: 50 })
+const studentUidCollection = ['euBbNeEdCbTWVRERvrBNZ1T09fI2', 'KDV39xKYsGfiAZV3gPm2iwhHi1G2', '5OL9wZBhBNdUkRuePmhkjZpvujE2', 'PuA9laE07FNfxMYAEsnQwwAiu7s1']
+const mentorUidCollection = ['tBiBHDYDMaQve3exXA5n2E5rFwJ3', 'g9oukxWlT0f9DMPDZBNnnWH9TKw1', 'R8zIwEZ1nJMHmksyGFFl9MDoMgR2', 'lIvMrAjgiHZ7Ww2RiCgnvV9iu4p2']
+
+const users = createUserData({ noOfUsersToCreate: 8, studentUidCollection, mentorUidCollection })
 const mentors = createMentorData({ noOfMentorsToCreate: mentorUidCollection.length, mentorUidCollection })
 const students = createStudentData({ noOfStudentsToCreate: studentUidCollection.length, studentUidCollection, mentorUidCollection })
-const questions = createQuestionData({ noOfQuestionsToCreate: 50, studentUidCollection, mentorUidCollection })
+const questions = createQuestionData({ noOfQuestionsToCreate: 10, studentUidCollection, mentorUidCollection })
+
 
 const writeToFirestore = async (collections) => {
   const batch = db.batch()
@@ -34,29 +38,9 @@ const writeToFirestore = async (collections) => {
   }
 }
 
-const writeSingleQuestion = async () => {
-  const questionRef = db.collection('questions')
-  const docRef = questionRef.doc('eb50700b-ce86-5857-90a1-e018bd5eecf2')
-  docRef.set({
-    "status": "pending",
-    "studentId": "0060cd26-38fb-5a8b-a769-86c02e8b1598",
-    "subject": {
-      "name": "Maths",
-      "level": "GCSE",
-      "topics": ["algebra", "trigonometry", "calculus"]
-    },
-    "topic": "calculus",
-    "uid": "eb50700b-ce86-5857-90a1-e018bd5eecf2",
-    "matchedMentorIds": []
-  })
-  return
-}
-
-writeSingleQuestion()
-
-// writeToFirestore({ 
-//   users, mentors, students, questions
-// })
+writeToFirestore({ 
+  users, mentors, students, questions
+})
 
 const print = (...data) => {
   data.map(datum => {
@@ -64,3 +48,4 @@ const print = (...data) => {
     console.log('\n\n')
   })
 }
+print(questions)

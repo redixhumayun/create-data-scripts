@@ -1,37 +1,27 @@
 const Chance = require('chance')
 const chance = new Chance()
 
-const studentUidCollection = []
-const mentorUidCollection = []
-
-const createUserData = ({ noOfUsersToCreate }) => {
-  return {
-    users: new Array(noOfUsersToCreate).fill().map(() => {
-      let role = chance.pickone(['Student', 'Mentor'])
-      let uid = chance.guid()
-      if (role === 'Student') {
-        studentUidCollection.push(uid)
-        return {
-          "uid": uid,
-          "email": chance.email(),
-          "name": chance.name(),
-          "mentor": false,
-          "student": true
-        }
-      } else if(role === 'Mentor') {
-        mentorUidCollection.push(uid)
-        return {
-          "uid": uid,
-          "email": chance.email(),
-          "name": chance.name(),
-          "mentor": true,
-          "student": false
-        }
+const createUserData = ({ noOfUsersToCreate, studentUidCollection, mentorUidCollection }) => {
+  return new Array(noOfUsersToCreate).fill().map((v, i) => {
+    let role = chance.pickone(['Student', 'Mentor'])
+    if (i <= 3) {
+      return {
+        "uid": studentUidCollection[i],
+        "email": chance.email(),
+        "name": chance.name(),
+        "mentor": false,
+        "student": true
       }
-    }),
-    studentUidCollection,
-    mentorUidCollection
-  }
+    } else {
+      return {
+        "uid": mentorUidCollection[i-4],
+        "email": chance.email(),
+        "name": chance.name(),
+        "mentor": true,
+        "student": false
+      }
+    }
+  })
 }
 
 module.exports.createUserData = createUserData
