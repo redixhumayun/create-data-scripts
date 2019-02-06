@@ -38,15 +38,20 @@ const createQuestionData = ({ noOfQuestionsToCreate, studentUidCollection, mento
       result.matchedMentorIds = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
     }
     if (result.status === 'solved') {
+      //  If status is solved, we only want to know mentor who solved it
+      //  So, claimedMentorIds will only have one mentor id
+      const mentorUids = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
+      result.matchedMentorIds = mentorUids
+      result.claimedMentorIds = chance.pickone(mentorUids)
+
       result.answer = {
         'created': chance.date(),
         'questionId': uid,
-        'mentorId': chance.pickone(mentorUidCollection),
+        'mentorId': result.claimedMentorIds,
         'answerText': chance.string(),
         'rating': chance.integer({ min: 0, max: 5 }),
         'imageUri': chance.url(),
       }
-      result.matchedMentorIds = chance.pickone(mentorUidCollection)
     }
     return result
   })

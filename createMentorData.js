@@ -20,7 +20,7 @@ const createMentorData = ({ noOfMentorsToCreate, mentorUidCollection }) => {
           "name": subjects[i],
           "topics": topics[i].slice(0, noOfTopics),
           "backgroundColor": getRandomColor(),
-          "imageUrl": 'https://firebasestorage.googleapis.com/v0/b/fir-demo-ea316.appspot.com/o/images%2F,maths.png?alt=media&token=a34071db-7867-47e8-9baf-4090f19649db',
+          "imageUrl": 'https://firebasestorage.googleapis.com/v0/b/fir-demo-ea316.appspot.com/o/images%2Fmaths.png?alt=media&token=a34071db-7867-47e8-9baf-4090f19649db',
           "levels": chance.pickset(levels, chance.integer({ min: 1, max: 2 }))
         }
       }),

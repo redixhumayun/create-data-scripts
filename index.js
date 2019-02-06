@@ -18,7 +18,7 @@ const mentorUidCollection = ['tBiBHDYDMaQve3exXA5n2E5rFwJ3', 'g9oukxWlT0f9DMPDZB
 const users = createUserData({ noOfUsersToCreate: 8, studentUidCollection, mentorUidCollection })
 const mentors = createMentorData({ noOfMentorsToCreate: mentorUidCollection.length, mentorUidCollection })
 const students = createStudentData({ noOfStudentsToCreate: studentUidCollection.length, studentUidCollection, mentorUidCollection })
-const questions = createQuestionData({ noOfQuestionsToCreate: 10, studentUidCollection, mentorUidCollection })
+const questions = createQuestionData({ noOfQuestionsToCreate: 15, studentUidCollection, mentorUidCollection })
 
 
 const writeToFirestore = async (collections) => {
@@ -48,4 +48,3 @@ const print = (...data) => {
     console.log('\n\n')
   })
 }
-print(questions)
