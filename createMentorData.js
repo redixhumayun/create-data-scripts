@@ -24,6 +24,7 @@ const createMentorData = ({ noOfMentorsToCreate, mentorUidCollection }) => {
           "levels": chance.pickset(levels, chance.integer({ min: 1, max: 2 }))
         }
       }),
+      "claimedQuestion": false,
       "avgRating": chance.pickone([1, 2, 3, 4, 5]),
       "totalQuestionsAnswered": 0,
       "totalRating": 0

@@ -1,7 +1,7 @@
 const Chance = require('chance')
 const chance = new Chance()
 
-const questionStatuses = ['pending', 'matched', 'claimed', 'solved']
+const questionStatuses = ['pending', 'matched', 'solved']
 const subjects = ['Maths', 'Science', 'Geography']
 const topics = [['algebra', 'calculus', 'trignometry'], ['physics', 'chemistry', 'biology'], ['oceans', 'forests', 'land']]
 const level = ['GCSE', 'A Level']
@@ -28,11 +28,6 @@ const createQuestionData = ({ noOfQuestionsToCreate, studentUidCollection, mento
       "studentId": chance.pickone(studentUidCollection),
       "matchedMentorIds": [],
       "claimedMentorIds": []
-    }
-    if (result.status === 'claimed') {
-      const mentorUids = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
-      result.matchedMentorIds = mentorUids
-      result.claimedMentorIds = chance.pickone(mentorUids)
     }
     if (result.status === 'matched') {
       result.matchedMentorIds = chance.pickset(mentorUidCollection, chance.integer({ min: 1, max: 5 }))
